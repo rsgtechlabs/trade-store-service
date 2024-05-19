@@ -35,6 +35,12 @@ public class TradeStoreServiceImpl implements TradeStoreService {
     public TradeStoreServiceImpl() {
     }
 
+    public TradeStoreServiceImpl(Store<TradeIdentifier, Trade> tradeStore, TradeStoreRuleService tradeStoreRuleService,TradeMapper tradeMapper) {
+        this.tradeStoreRuleService = tradeStoreRuleService;
+        this.tradeStore = tradeStore;
+        this.tradeMapper = tradeMapper;
+    }
+
     public List<TradeStoreResponse> store(final List<Trade> trades) {
         logger.info("store - enter for trades {}", trades.size());
         List<TradeStoreResponse> result = trades.stream().map(trade -> store(trade)).collect(Collectors.toList());
