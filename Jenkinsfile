@@ -1,12 +1,18 @@
 pipeline {
   agent any
 
+
+
   stages {
+
 
       stage('Deletion') {
             steps {
                 echo '--Remove repository if it exists --'
                 sh "rm -rf trade-store-service"
+
+
+
             }
         }
        stage('Clone') {
@@ -17,7 +23,8 @@ pipeline {
                 sh 'git config --global user.password "${GIT_PASSWORD}"'
 
                 echo '--Cloning Git Repo started ---'
-                sh "git clone https://{GIT_USERNAME}:$GIT_PASSWORD@github.com/{GIT_USERNAME}/jenkins-maven.git"
+                sh "git clone https://$GIT_USERNAME:$GIT_PASSWORD@github.com/$GIT_USERNAME/trade-store-service.git"
+                //https://github.com/rsgtechlabs/trade-store-service.git
 
                 echo '--Cloning Git Repo ended ---'
 
@@ -31,20 +38,23 @@ pipeline {
       stage('Build Artifact') {
             steps {
 
-                dir('/var/jenkins_home/workspace/Java_Pipeline/jenkins-maven') {
 
-                   echo '--Building artifact started ---'
 
-                  sh "mvn clean package -DskipTests=true"
-                  archive 'target/*.jar'
+                    dir('/var/jenkins_home/workspace/TSS_Pipeline/trade-store-service') {
 
-                  echo '--Building artifact ended ---'
-                }
+                    echo '--Building artifact started ---'
+
+                      sh "mvn clean package -DskipTests=true"
+                      archive 'target/*.jar'
+
+                      echo '--Building artifact ended ---'
+                    }
+
             }
        }
       stage('Test Maven - JUnit') {
             steps {
-                     dir('/var/jenkins_home/workspace/Java_Pipeline/jenkins-maven') {
+                     dir('/var/jenkins_home/workspace/TSS_Pipeline/trade-store-service') {
                      echo '--Run Unit Test started ---'
 
                          sh "mvn test"
@@ -76,7 +86,7 @@ pipeline {
                //         waitForQualityGate abortPipeline: true
                  //   }
                // }
-            //  }
+              }
         }
 
          stage('Upload Artifact ') {
