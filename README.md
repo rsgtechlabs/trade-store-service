@@ -28,6 +28,43 @@ mvn clean install
 Run the TradeStoreServiceApplication class in IDE
 ```
 
+## Sample Request
+
+Add Trade to Store 
+
+
+```json
+API - <localhost:7077>/api/v1/trade
+Method = POST
+Sample Request Body
+{
+	"tradeId": "T1",
+	"version" : 1,
+	"counterPartyId": "C1",
+	"bookId": "B1",
+	"maturityDate": "12/12/2024",
+	"createdDate" : "05/05/2024",
+    "expired" : "N"
+}
+```
+
+Get Trade from Store
+
+@TODO - Follow Rest Standards for API naming/URI conventions/definition 
+
+
+```json
+API - <localhost:7077>/api/v1/trade
+Method = GET
+Sample Request Body
+{
+	"tradeId": "T1",
+	"version" : 1
+}
+```
+
+
+
 ## CI CD integration
 Jenkins build file has been provided to build the application code. 
 The ideal Jenkins pipeline would have multiple stages but for now we have only got the following stages

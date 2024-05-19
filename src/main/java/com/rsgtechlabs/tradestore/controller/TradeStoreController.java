@@ -47,6 +47,7 @@ public class TradeStoreController {
         return tradeStoreResponseCompletableFuture;
     }
 
+   // @TODO - Follow Rest Standards for API naming/URI conventions/definition
     @GetMapping("/trade")
     public ResponseEntity<TradeGetResponse> getTrade(@RequestBody final TradeGetRequest request) {
         logger.info("Get Trade data from trade store started for request: {}", request);
